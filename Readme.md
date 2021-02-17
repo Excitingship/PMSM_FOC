@@ -18,11 +18,11 @@ https://zhuanlan.zhihu.com/p/147659820
 
 首先我们使用Simscape->Specialized Power System->Fundamental Blocks->Machines->Permanent Magnet Synchronous Machine永磁同步电机模块（Simscape内部Electrical里面也有PMSM的模型，不过在同样的仿真步长下比前者要慢很多，具体原因未知，用其搭建的电机模型也在此模型下部）。**所有的模型都要右键点开help看一眼，往往会节省很多时间**。打开help可以看见永磁同步电机的介绍，输入输出的含义以及d轴与q轴的定义。我们这时双击模块设置参数：
 
-![WSFCCJBQG7FVBR0](../asset/WSFCCJBQG7FVBR0.png)
+![WSFCCJBQG7FVBR0](./asset/WSFCCJBQG7FVBR0.png)
 
 基础设置不用改动
 
-![NOG3BNLQZFF167FP0](../asset/NOG3BNLQZFF167FP0.png)
+![NOG3BNLQZFF167FP0](./asset/NOG3BNLQZFF167FP0.png)
 
 第二页Parameter中最重要的是**最下面的Rotor flux position when theta = 0**，由于Park变换需要电机角度，所以需要着重强调，正常来说，当电机角度为0时，**d轴（磁极）应与a相对齐**，所以像图中一样设置。
 
@@ -44,18 +44,18 @@ https://blog.csdn.net/qlexcel/article/details/74787619
 
 根据计算发现各个矢量作用时间的计算公式是相同的，可以用三个公式进行排列组合，也就是XYZ，，根据α和β算出XYZ，然后再根据扇区查表算出当前扇区两个矢量的作用时间
 
-![img](../asset/20190805234658855.png)
+![img](./asset/20190805234658855.png)
 
-![img](../asset/20190806220841569.png)
+![img](./asset/20190806220841569.png)
 
 其中由于七段式SVPWM每次只变换一项，我们需要计算换相的时间例如T0 T4和T6
 
-![img](../asset/20190806230508854.png)
-![img](../asset/2019080523362985.png)
+![img](./asset/20190806230508854.png)
+![img](./asset/2019080523362985.png)
 
 根据上述公式，我们查表算出Tcm，最后与三角载波比较形成中心对齐的PWM波形
 
-![img](../asset/20190806231245635.png)
+![img](./asset/20190806231245635.png)
 
 最后将每个桥的0和1状态转换为每个门的控制信号（3转6）输出到逆变器模块即可。
 
